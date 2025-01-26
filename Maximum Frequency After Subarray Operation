@@ -1,0 +1,45 @@
+class Solution {
+    public int maxFrequency(int[] nums, int k) {
+        int numK = 0;
+        for (int num : nums) {
+            if (num == k) {
+                numK++;
+            }
+        }
+        
+        Set<Integer> m = new HashSet<>();
+        for (int num : nums) {
+            if (num != k) {
+                m.add(num);
+            }
+        }
+        
+        if (m.isEmpty()) {
+            return numK;
+        }
+        
+        int maxDiff = Integer.MIN_VALUE;
+        for (int v : m) {
+            int[] transformed = new int[nums.length];
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] == v) {
+                    transformed[i] = 1;
+                } else if (nums[i] == k) {
+                    transformed[i] = -1;
+                } else {
+                    transformed[i] = 0;
+                }
+            }
+            
+            int currentMax = transformed[0];
+            int maxSub = currentMax;
+            for (int i = 1; i < transformed.length; i++) {
+                currentMax = Math.max(transformed[i], currentMax + transformed[i]);
+                maxSub = Math.max(maxSub, currentMax);
+            }
+            maxDiff = Math.max(maxDiff, maxSub);
+        }
+        
+        return numK + maxDiff;
+    }
+}
