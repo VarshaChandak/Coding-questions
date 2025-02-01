@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    public int maxFreeTime(int eventTime, int k, int[] startTime, int[] endTime) {
+        int n = startTime.length;
+        ArrayList<Integer> gaps = gps(startTime, endTime, eventTime, n);
+        return freet(gaps, k);
+    }
+    private ArrayList<Integer> gps(int[] startTime, int[] endTime, int eventTime, int n) {
+        ArrayList<Integer> gaps = new ArrayList<>();
+        gaps.add(startTime[0]);
+        for (int i = 1; i < n; i++) {
+            int gap = startTime[i] - endTime[i - 1];
+            gaps.add(gap);
+        }
+        gaps.add(eventTime - endTime[n - 1]);
+        return gaps;
+    }
+    private int freet(ArrayList<Integer> gaps, int k) {
+        int space = 0;
+        int dl = 0;
+        for (int i = 0; i < Math.min(k + 1, gaps.size()); i++) {
+            dl += gaps.get(i);
+        }
+        space = dl;
+        for (int i = k + 1; i < gaps.size(); i++) {
+            dl = dl - gaps.get(i - (k + 1)) + gaps.get(i);
+            space = Math.max(space, dl);
+        }
+        return space;
+    }}
