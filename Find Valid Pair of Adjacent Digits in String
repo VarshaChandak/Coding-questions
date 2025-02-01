@@ -1,0 +1,21 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public String findValidPair(String s) {
+        Map<Character, Integer> m = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            m.put(c, m.getOrDefault(c, 0) + 1);
+        }
+        for (int i = 0; i < s.length() - 1; i++) {
+            char ps = s.charAt(i);
+            char pw = s.charAt(i + 1);
+
+            if (ps != pw && m.get(ps) == (ps - '0') && m.get(pw) == (pw - '0')) {
+                return "" + ps + pw;
+            }
+        }
+
+        return "";
+    }
+}
