@@ -1,0 +1,32 @@
+class Solution {
+    public String smallestNumber(String pattern) {
+        int n = pattern.length();
+        int[] a = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
+            a[i] = i + 1;
+        }
+        for (int i = 0; i < n; i++) {
+            if (pattern.charAt(i) == 'D') {
+                int p = i;
+                while (p < n && pattern.charAt(p) == 'D') {
+                    p++;
+                }
+                int curr = i, right = p;
+                while (curr < right) {
+                    int temp = a[curr];
+                    a[curr] = a[right];
+                    a[right] = temp;
+                    curr++;
+                    right--;
+                }
+                i = p ;
+            }
+        }
+        StringBuilder ans = new StringBuilder();
+        for (int num : a) {
+            ans.append(num);
+        }
+        
+        return ans.toString();
+    }
+}
