@@ -1,0 +1,62 @@
+import java.util.*;
+
+class Solution {
+    private int count = 0; 
+    private String result = ""; 
+
+    public String getHappyString(int n, int k) {
+        help(n, 0, new StringBuilder(), k, ' ');
+        return result;
+    }
+
+    private void help(int n, int curr, StringBuilder str, int k, char prev) {
+        if (count >= k) return; 
+
+        if (curr == n) {
+            count++; 
+            if (count == k) result = str.toString(); 
+            return;
+        }
+
+        if (prev == ' ') { 
+            str.append('a');
+            help(n, curr + 1, str, k, 'a');
+            str.deleteCharAt(str.length() - 1);
+            
+            str.append('b');
+            help(n, curr + 1, str, k, 'b');
+            str.deleteCharAt(str.length() - 1);
+            
+            str.append('c');
+            help(n, curr + 1, str, k, 'c');
+            str.deleteCharAt(str.length() - 1);
+        } 
+        else if (prev == 'a') {
+            str.append('b');
+            help(n, curr + 1, str, k, 'b');
+            str.deleteCharAt(str.length() - 1);
+
+            str.append('c');
+            help(n, curr + 1, str, k, 'c');
+            str.deleteCharAt(str.length() - 1);
+        } 
+        else if (prev == 'b') {
+            str.append('a');
+            help(n, curr + 1, str, k, 'a');
+            str.deleteCharAt(str.length() - 1);
+
+            str.append('c');
+            help(n, curr + 1, str, k, 'c');
+            str.deleteCharAt(str.length() - 1);
+        } 
+        else if (prev == 'c') { 
+            str.append('a');
+            help(n, curr + 1, str, k, 'a');
+            str.deleteCharAt(str.length() - 1);
+
+            str.append('b');
+            help(n, curr + 1, str, k, 'b');
+            str.deleteCharAt(str.length() - 1);
+        }
+    }
+}
