@@ -1,0 +1,18 @@
+import java.util.*;
+
+class Solution {
+    public String findDifferentBinaryString(String[] nums) {
+        Set<String> set = new HashSet<>();
+        for (String num : nums) set.add(num);
+        return generate(set, nums[0].length(), ""); 
+    }
+
+    private String generate(Set<String> set, int n, String current) {
+        if (current.length() == n) {
+            return set.contains(current) ? null : current;
+        }
+        String res = generate(set, n, current + "0");
+        if (res != null) return res;
+        return generate(set, n, current + "1");
+    }
+}
