@@ -1,0 +1,19 @@
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        int n = grid.length;
+        int p = n * n;
+        int a[] = new int[p + 1];
+        int rep = -1,mis= -1;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                a[grid[i][j]]++;
+            }
+        }
+        for (int i = 1; i <= p; i++) {
+            if (a[i] == 2) rep = i;
+            if (a[i] == 0) mis= i;
+        }
+
+        return new int[]{rep, mis};
+    }
+}
