@@ -1,0 +1,24 @@
+class Solution {
+    public int numberOfAlternatingGroups(int[] colors, int k) {
+        int n = colors.length, count = 0, altCount = 1, lastColor = colors[0];
+
+        for (int i = 1; i < n; i++) {
+            if (colors[i] == lastColor) {
+                altCount = 1;
+            } else {
+                altCount++;
+                if (altCount >= k) count++;
+            }
+            lastColor = colors[i];
+        }
+
+        for (int i = 0; i < k - 1; i++) {
+            if (colors[i] == lastColor) break;
+            altCount++;
+            if (altCount >= k) count++;
+            lastColor = colors[i];
+        }
+        
+        return count;
+    }
+}
