@@ -1,0 +1,33 @@
+class Solution {
+    public int maximumCandies(int[] candies, long k) {
+        long total = 0;
+        int maxCandy = 0;
+
+        for (int candy : candies) {
+            total += candy;
+            maxCandy = Math.max(maxCandy, candy);
+        }
+
+        if (total < k) return 0;
+
+        long left = 1, right = maxCandy, result = 0;
+
+        while (left <= right) {
+            long mid = left + (right - left) / 2;
+            long count = 0;
+
+            for (int candy : candies) {
+                count += candy / mid;
+            }
+
+            if (count >= k) {
+                result = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return (int) result;
+    }
+}
