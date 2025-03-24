@@ -1,0 +1,27 @@
+import java.util.Arrays;
+
+class Solution {
+    public int countDays(int days, int[][] meetings) {
+        if (meetings.length == 0) return days;
+
+        Arrays.sort(meetings, (a, b) -> Integer.compare(a[0], b[0]));
+
+        int t = 0;
+        int c = meetings[0][0], d = meetings[0][1];
+
+        for (int i = 1; i < meetings.length; i++) {
+            int x = meetings[i][0], y = meetings[i][1];
+
+            if (x <= d) {
+                d = Math.max(d, y);
+            } else {
+                t += (d - c + 1);
+                c = x;
+                d = y;
+            }
+        }
+        t += (d - c + 1);
+
+        return days - t;
+    }
+}
