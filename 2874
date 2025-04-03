@@ -1,0 +1,17 @@
+class Solution {
+    public long maximumTripletValue(int[] nums) {
+        int n = nums.length;
+        if (n < 3) return 0;
+
+        int m = nums[0];
+        long maxDiff = Long.MIN_VALUE, maxTriplet = 0;
+
+        for (int j = 1; j < n - 1; j++) {
+            maxDiff = Math.max(maxDiff, m - (long) nums[j]);
+            maxTriplet = Math.max(maxTriplet, maxDiff * nums[j + 1]);
+            m = Math.max(m, nums[j]); 
+        }
+
+        return maxTriplet;
+    }
+}
