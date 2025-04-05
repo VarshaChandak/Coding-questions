@@ -1,0 +1,15 @@
+class Solution {
+    public int subsetXORSum(int[] nums) {
+        int sum = m(nums, 0, 0);
+        return sum;
+    }
+
+    private int m(int[] a, int sum, int i) {
+        if (i == a.length) {
+            return sum;
+        }
+        int p = m(a, sum ^ a[i], i + 1); 
+        int q = m(a, sum, i + 1);      
+        return p + q;
+    }
+}
