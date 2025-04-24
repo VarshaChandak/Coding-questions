@@ -1,0 +1,24 @@
+import java.util.*;
+
+public class Solution {
+    public int countCompleteSubarrays(int[] nums) {
+        int n = nums.length;
+        Set<Integer> d = new HashSet<>();
+        for (int num : nums) {
+            d.add(num);
+        }
+        int totalDistinct = d.size();
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            Set<Integer> p = new HashSet<>();
+            for (int j = i; j < n; j++) {
+                p.add(nums[j]);
+                if (p.size() == totalDistinct) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+}
