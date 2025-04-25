@@ -1,0 +1,18 @@
+class Solution {
+    public long countInterestingSubarrays(List<Integer> nums, int modulo, int k) {
+        Map<Integer, Long> map = new HashMap<>();
+        map.put(0, 1L);  
+        long answer = 0;
+        int count = 0; 
+        for (int i = 0; i < nums.size(); i++) {
+            int add = (nums.get(i) % modulo == k) ? 1 : 0;
+            count = (count + add) % modulo;
+            int find = (count - k + modulo) % modulo;
+
+            answer += map.getOrDefault(find, 0L);
+            map.put(count, map.getOrDefault(count, 0L) + 1);
+        }
+
+        return answer;
+    }
+}
