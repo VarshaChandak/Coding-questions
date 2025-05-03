@@ -1,0 +1,24 @@
+public class Solution {
+    public int minDominoRotations(int[] tops, int[] bottoms) {
+        int res = tryTarget(tops[0], tops, bottoms);
+        if (res != -1) return res;
+        return tryTarget(bottoms[0], tops, bottoms);
+    }
+
+    private int tryTarget(int target, int[] tops, int[] bottoms) {
+        int swapTop = 0;
+        int swapBottom = 0;
+
+        for (int i = 0; i < tops.length; i++) {
+            if (tops[i] != target && bottoms[i] != target) {
+                return -1;
+            } else if (tops[i] != target) {
+                swapTop++;
+            } else if (bottoms[i] != target) {
+                swapBottom++;
+            }
+        }
+
+        return Math.min(swapTop, swapBottom);
+    }
+}
