@@ -1,0 +1,39 @@
+import java.util.*;
+
+class Solution {
+    public int[] findEvenNumbers(int[] digits) {
+        Set<Integer> set = new HashSet<>();
+
+        int n = digits.length;
+
+        // Try all permutations of 3 different indices
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) continue;
+                for (int k = 0; k < n; k++) {
+                    if (k == i || k == j) continue;
+
+                    int d1 = digits[i];
+                    int d2 = digits[j];
+                    int d3 = digits[k];
+
+                    if (d1 != 0 && d3 % 2 == 0) { // No leading zero and last digit even
+                        int num = d1 * 100 + d2 * 10 + d3;
+                        set.add(num);
+                    }
+                }
+            }
+        }
+
+        // Convert set to a sorted list, then to an array
+        List<Integer> temp = new ArrayList<>(set);
+        Collections.sort(temp);
+
+        int[] result = new int[temp.size()];
+        for (int i = 0; i < temp.size(); i++) {
+            result[i] = temp.get(i);
+        }
+
+        return result;
+    }
+}
