@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+
+class Solution {
+    public int myAtoi(String s) {
+        ArrayList<Character> a = new ArrayList<>();
+        s = s.trim();
+        if (s.isEmpty()) {
+            return 0;
+        }
+        if (s.startsWith("+-") || s.startsWith("-+") || s.startsWith("++")) {
+            return 0;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (a.isEmpty() && c == '-') {
+                a.add(c);
+                continue;
+            }
+            if (a.isEmpty() && c == '+') {
+                continue;
+            }
+            if (!Character.isDigit(c)) {
+                break;
+            }
+
+            a.add(c);
+        }
+        
+        if (a.isEmpty() || (a.size() == 1 && a.get(0) == '-')) {
+            return 0;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (char c : a) {
+            sb.append(c);
+        }
+
+        String numberStr = sb.toString();
+        long result = 0;
+        boolean isNegative = (numberStr.charAt(0) == '-');
+
+        for (int i = (isNegative || numberStr.charAt(0) == '+') ? 1 : 0; i < numberStr.length(); i++) {
+            char c = numberStr.charAt(i);
+            result = result * 10 + (c - '0');
+            
+            if (isNegative && result > (long) Integer.MAX_VALUE + 1) {
+                return Integer.MIN_VALUE;
+            } else if (!isNegative && result > Integer.MAX_VALUE) {
+                return Integer.MAX_VALUE;
+            }
+        }
+        return isNegative ? (int) -result : (int) result;
+    }
+}
