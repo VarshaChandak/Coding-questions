@@ -1,0 +1,16 @@
+import java.util.Arrays;
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        int slen = s.length();
+        int tlen = t.length();
+        if (slen != tlen) return false;
+        int[] sn = new int[26]; 
+        int[] tn = new int[26]; 
+        for (int i = 0; i < slen; i++) {
+            sn[s.charAt(i) - 'a']++;
+            tn[t.charAt(i) - 'a']++;
+        }
+        return Arrays.equals(sn, tn);
+    }
+}
