@@ -1,0 +1,10 @@
+import java.math.BigInteger;
+
+class Solution {
+    public String multiply(String num1, String num2) {
+        BigInteger m1 = new BigInteger(num1);
+        BigInteger m2 = new BigInteger(num2);
+        BigInteger result = m1.multiply(m2);
+        return result.toString();
+    }
+}
