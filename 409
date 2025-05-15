@@ -1,0 +1,26 @@
+class Solution {
+    public int longestPalindrome(String s) {
+        int m = s.length() - 1; 
+        Map<Character, Integer> frequency = new HashMap<>();
+        for (char ch : s.toCharArray()) {
+            frequency.put(ch, frequency.getOrDefault(ch, 0) + 1);
+        }
+
+        int sum = 0;
+        int count = 0; 
+        for (int value : frequency.values()) {
+            if (value % 2 == 0) {
+                sum += value;
+            } else {
+                sum += value - 1;
+                count++; 
+            }
+        }
+
+        if (count > 0) {
+            sum += 1;
+        }
+
+        return sum;
+    }
+}
