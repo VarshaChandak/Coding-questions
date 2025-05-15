@@ -1,0 +1,9 @@
+import java.math.BigInteger;
+
+class Solution {
+    public int mySqrt(int x) {
+        BigInteger a = BigInteger.valueOf(x);
+        BigInteger m = a.sqrt();
+        return m.intValue();
+    }
+}
