@@ -1,0 +1,29 @@
+class Solution {
+    public boolean isMatch(String s, String p) {
+        int sLen = s.length(), pLen = p.length();
+        int sIndex = 0, pIndex = 0, starIndex = -1, match = 0;
+        
+        while (sIndex < sLen) {
+            if (pIndex < pLen && (p.charAt(pIndex) == s.charAt(sIndex) || p.charAt(pIndex) == '?')) {
+                sIndex++;
+                pIndex++;
+            } else if (pIndex < pLen && p.charAt(pIndex) == '*') {
+                starIndex = pIndex;
+                match = sIndex;
+                pIndex++;
+            } else if (starIndex != -1) {
+                pIndex = starIndex + 1;
+                match++;
+                sIndex = match;
+            } else {
+                return false;
+            }
+        }
+        
+        while (pIndex < pLen && p.charAt(pIndex) == '*') {
+            pIndex++;
+        }
+        
+        return pIndex == pLen;
+    }
+}
