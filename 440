@@ -1,0 +1,28 @@
+class Solution {
+    public int findKthNumber(int n, int k) {
+        int c1 = 1; 
+        k--;  
+        
+        while (k > 0) {
+            int steps = countSteps(n, c1, c1 + 1);  
+            if (steps <= k) {
+                c1++; 
+                k -= steps;  
+            } else {
+                c1 *= 10;  
+                k--;  
+            }
+        }
+        return c1;
+    }
+
+    private int countSteps(int n, long p1, long p2) {
+        int steps = 0;
+        while (p1 <= n) {
+            steps += Math.min(n + 1, p2) - p1;
+            p1 *= 10;
+            p2 *= 10;
+        }
+        return steps;
+    }
+}
