@@ -1,0 +1,42 @@
+import java.util.*;
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        // The result list to store the starting indices of the anagrams
+        List<Integer> result = new ArrayList<>();
+        
+        // Edge case: if p is longer than s, there can't be any anagrams
+        if (s == null || p == null || s.length() < p.length()) return result;
+
+        // Frequency arrays for the characters in p and the current window in s
+        int[] pCount = new int[26]; // Frequency of characters in p
+        int[] sCount = new int[26]; // Frequency of characters in the sliding window in s
+
+        // Populate the frequency array for p
+        for (char ch : p.toCharArray()) {
+            pCount[ch - 'a']++;  // Increase the count for each character in p
+        }
+
+        // Window size is equal to the length of p
+        int windowSize = p.length();
+
+        // Slide the window over s
+        for (int i = 0; i < s.length(); i++) {
+            // Add the current character to the window's frequency count
+            sCount[s.charAt(i) - 'a']++;
+
+            // If the window is larger than the size of p, remove the leftmost character
+            if (i >= windowSize) {
+                sCount[s.charAt(i - windowSize) - 'a']--;  // Remove the character that's no longer in the window
+            }
+
+            // Check if the current window's frequency matches p's frequency
+            if (Arrays.equals(pCount, sCount)) {
+                // If they match, it's an anagram, so we add the starting index of the window
+                result.add(i - windowSize + 1);
+            }
+        }
+        
+        return result;  // Return the list of starting indices
+    }
+}
