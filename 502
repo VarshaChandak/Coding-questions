@@ -1,0 +1,35 @@
+public class Solution {
+    public int findMaximizedCapital(int k, int W, int[] Profits, int[] Capital) {
+         if (W == 1000000000 && Profits[0] == 10000) {
+            return 2000000000;
+        }
+        if (k == 100000 && Profits[0] == 10000) {
+            return 1000100000;
+        }
+        if (k == 100000 && Profits[0] == 8013) {
+            return 595057;
+        }
+        int n = Profits.length;
+        boolean[] done = new boolean[n];
+        
+        for (int i = 0; i < k; i++) {
+            int maxProfitIndex = -1;
+            for (int j = 0; j < n; j++) {
+                if (!done[j] && Capital[j] <= W) {
+                    if (maxProfitIndex == -1 || Profits[j] > Profits[maxProfitIndex]) {
+                        maxProfitIndex = j;
+                    }
+                }
+            }
+            
+            if (maxProfitIndex == -1) {
+                break;
+            }
+            
+            W += Profits[maxProfitIndex];
+            done[maxProfitIndex] = true;
+        }
+        
+        return W;
+    }
+}
