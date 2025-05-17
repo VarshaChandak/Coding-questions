@@ -1,0 +1,38 @@
+import java.util.List;
+import java.util.PriorityQueue;
+
+class Solution {
+    public int[] smallestRange(List<List<Integer>> nums) {
+        PriorityQueue<int[]> minheap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        int max_value = Integer.MIN_VALUE;
+        int start = 0, end = Integer.MAX_VALUE;
+
+        for (int i = 0; i < nums.size(); i++) {
+            int value = nums.get(i).get(0);
+            minheap.offer(new int[]{value, i, 0});
+            max_value = Math.max(max_value, value);
+        }
+
+        while (minheap.size() == nums.size()) {
+            int[] current = minheap.poll();
+            int min_value = current[0];
+            int list_index = current[1];
+            int ele_index = current[2];
+
+            if (max_value - min_value < end - start) {
+                start = min_value;
+                end = max_value;
+            }
+
+            if (ele_index + 1 < nums.get(list_index).size()) {
+                int next_value = nums.get(list_index).get(ele_index + 1);
+                minheap.offer(new int[]{next_value, list_index, ele_index + 1});
+                max_value = Math.max(max_value, next_value);
+            } else {
+                break;
+            }
+        }
+
+        return new int[]{start, end};
+    }
+}
