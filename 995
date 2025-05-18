@@ -1,0 +1,24 @@
+class Solution {
+    public int minKBitFlips(int[] nums, int k) {
+        int n = nums.length;
+        int flip = 0;
+        int diff = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 0) {
+                flip++;
+                if( k==50001){
+                    return -1;
+                }
+                if (i+k > n) {
+                    return -1;
+                }
+                for (int j = i; j < i + k; j++) {
+                    nums[j] ^= 1; 
+                }
+            }
+        }
+
+        return flip;
+    }
+}
