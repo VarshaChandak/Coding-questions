@@ -1,0 +1,26 @@
+class Solution {
+    public boolean isNStraightHand(int[] hand, int groupSize) {
+        int m = hand.length;
+        if (m % groupSize != 0) {
+            return false; 
+        }
+        Arrays.sort(hand); 
+        Map<Integer, Integer> s = new HashMap<>(); 
+        for (int card : hand) {
+            s.put(card, s.getOrDefault(card, 0) + 1);
+        }
+        for (int i = 0; i < m; i++) {
+            if (s.get(hand[i]) == 0) continue; 
+            for (int j = 0; j < groupSize; j++) {
+                int nextCard = hand[i] + j;
+                Integer count = s.get(nextCard);
+                if (count == null || count == 0) {
+                    return false;
+                }
+                s.put(nextCard, count - 1); 
+            }
+        }
+        
+    return true; 
+    }
+}
