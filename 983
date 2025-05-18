@@ -1,0 +1,27 @@
+class Solution {
+    public int mincostTickets(int[] days, int[] costs) {
+        return fun(0, days, costs, new int[days.length]);
+    }
+
+    private int fun(int curr, int[] days, int[] costs, int[] cost1) {
+        if (curr >= days.length) return 0;
+        if (cost1[curr] != 0) return cost1[curr];
+
+        int day1 = costs[0] + fun(curr + 1, days, costs, cost1);
+
+        int i = curr;
+        while (i < days.length && days[i] < days[curr] + 7) {
+            i++;
+        }
+        int day7 = costs[1] + fun(i, days, costs, cost1);
+
+        int j = curr;
+        while (j < days.length && days[j] < days[curr] + 30) {
+            j++;
+        }
+        int day30 = costs[2] + fun(j, days, costs, cost1);
+
+        cost1[curr] = Math.min(day1, Math.min(day7, day30));
+        return cost1[curr];
+    }
+}
