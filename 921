@@ -1,0 +1,21 @@
+class Solution {
+    public int minAddToMakeValid(String s) {
+        int balance = 0;
+        int minbalance = 0;
+
+        for (char m : s.toCharArray()) {
+            if (m == '(') {
+                balance++;
+            } else {
+                balance--;
+            }
+
+            if (balance < 0) {
+                minbalance++;
+                balance = 0;
+            }
+        }
+
+        return minbalance + balance;
+    }
+}
