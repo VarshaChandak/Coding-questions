@@ -1,0 +1,23 @@
+class Solution {
+    public boolean isZeroArray(int[] nums, int[][] queries) {
+        int n = nums.length;
+        int[] freq = new int[n + 1];
+
+        for (int[] a : queries) {
+            int b = a[0];
+            int c = a[1];
+            freq[b] += 1;
+            if (c + 1 < n) freq[c + 1] -= 1;
+        }
+
+        for (int i = 1; i < n; i++) {
+            freq[i] += freq[i - 1];
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (freq[i] < nums[i]) return false;
+        }
+
+        return true;
+    }
+}
