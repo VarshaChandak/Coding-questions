@@ -1,0 +1,35 @@
+class Solution {
+    public int longestPalindrome(String[] words) {
+        Map<String, Integer> freq = new HashMap<>();
+
+        for (String word : words) {
+            freq.put(word, freq.getOrDefault(word, 0) + 1);
+        }
+
+        int length = 0;
+        boolean hasCenter = false;
+
+        for (String word : freq.keySet()) {
+            String reversed = new StringBuilder(word).reverse().toString();
+
+            if (word.equals(reversed)) {
+                int count = freq.get(word);
+                length += (count / 2) * 4;
+                if (count % 2 == 1) {
+                    hasCenter = true;
+                }
+            } else if (freq.containsKey(reversed)) {
+                int pairCount = Math.min(freq.get(word), freq.get(reversed));
+                length += pairCount * 4;
+                freq.put(word, freq.get(word) - pairCount);
+                freq.put(reversed, freq.get(reversed) - pairCount);
+            }
+        }
+
+        if (hasCenter) {
+            length += 2;
+        }
+
+        return length;
+    }
+}
