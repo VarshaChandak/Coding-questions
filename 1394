@@ -1,0 +1,17 @@
+class Solution {
+    public int findLucky(int[] arr) {
+        Map<Integer,Integer>m=new HashMap<>();
+        for(int a:arr){
+            m.put(a,m.getOrDefault(a,0)+1);
+        }
+        int maxi=-1;
+        for(Map.Entry<Integer,Integer>p:m.entrySet()){
+            
+            if(p.getValue()==p.getKey()){
+                int q=p.getValue();
+                maxi=Math.max(maxi,q);
+            }
+        }
+        return maxi;
+    }
+}
