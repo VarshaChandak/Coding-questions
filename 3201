@@ -1,0 +1,25 @@
+class Solution {
+    public int maximumLength(int[] nums) {
+        boolean[]arr=new boolean[nums.length];
+        int o=0;
+        int e=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]%2==1){
+                arr[i]=true;
+                o+=1;
+            }
+            else{
+                e++;
+            }
+        }
+        boolean flag=!arr[0];
+        int seq=0;
+        for(boolean i:arr){
+            if(i!=flag){
+                seq+=1;
+                flag=i;
+            }
+        }
+        return Math.max(seq,Math.max(e,o));
+    }
+}
